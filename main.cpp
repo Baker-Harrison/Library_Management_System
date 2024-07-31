@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
-#include "Library.h"
-#include "Book.h"
-#include "Member.h"
-#include "Librarian.h"
+#include "include/Library.h"
+#include "include/Book.h"
+#include "include/Member.h"
+#include "include/Librarian.h"
 
 // Function prototypes
 void displayMenu();
@@ -84,25 +84,23 @@ void handleAddMember(Library& library) {
     int id;
     std::cout << "Enter member name: ";
     std::getline(std::cin, name);
-    std::cout << "Enter member ID: ";
-    std::cin >> id;
     std::cin.ignore();  // Clear newline character from input buffer
 
-    Member member(name, id);
+    Member member(name);
     library.addMember(member);
     std::cout << "Member added successfully." << std::endl;
 }
 
 void handleAddLibrarian(Library& library) {
     std::string name;
-    int id;
+    int employeeId;
     std::cout << "Enter librarian name: ";
     std::getline(std::cin, name);
-    std::cout << "Enter librarian ID: ";
-    std::cin >> id;
+    std::cout << "Enter employee ID: ";
+    std::cin >> employeeId;
     std::cin.ignore();  // Clear newline character from input buffer
 
-    Librarian librarian(name, id);
+    Librarian librarian(name, employeeId);
     library.addLibrarian(librarian);
     std::cout << "Librarian added successfully." << std::endl;
 }
@@ -129,7 +127,7 @@ void listLibrarians(const Library& library) {
     std::cout << "\nLibrarians of Library:" << std::endl;
     for (const Librarian& librarian : library.getLibrarians()) {
         std::cout << "Name: " << librarian.getName()
-                  << ", ID: " << librarian.getId()
+
                   << std::endl;
     }
 }
