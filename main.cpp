@@ -131,3 +131,15 @@ void listLibrarians(const Library& library) {
                   << std::endl;
     }
 }
+
+void borrowBook(Member& member, Library& library) {
+
+    std::cout << "Enter book title: ";
+    std::string title;
+    std::getline(std::cin, title);
+    Book book = library.findBook(title);
+
+
+    member.borrowBook(book);
+    std::cout << "Book borrowed successfully." << std::endl;
+}
