@@ -13,6 +13,9 @@ void handleAddLibrarian(Library& library);
 void listBooks(const Library& library);
 void listMembers(const Library& library);
 void listLibrarians(const Library& library);
+void handleBorrowBook(Library& library);
+
+void printBorrowedBooks(const Library& library) ;
 
 int main() {
     Library library;
@@ -21,7 +24,7 @@ int main() {
     do {
         displayMenu();
         std::cin >> choice;
-        std::cin.ignore();  // Clear newline character from input buffer
+        std::cin.ignore();
 
         switch (choice) {
             case 1:
@@ -43,12 +46,19 @@ int main() {
                 listLibrarians(library);
                 break;
             case 7:
-                std::cout << "Exiting the program." << std::endl;
+                handleBorrowBook(library);
                 break;
+            case 8:
+                std::cout << "Exiting program." << std::endl;
+                break;
+            case 9:
+                printBorrowedBooks(library);
+
+
             default:
                 std::cout << "Invalid choice. Please try again." << std::endl;
         }
-    } while (choice != 7);
+    } while (choice != 8);
 
     return 0;
 }
@@ -61,7 +71,10 @@ void displayMenu() {
     std::cout << "4. List Books" << std::endl;
     std::cout << "5. List Members" << std::endl;
     std::cout << "6. List Librarians" << std::endl;
-    std::cout << "7. Exit" << std::endl;
+    std::cout << "7. Borrow Book" << std::endl;
+    std::cout << "8. return book" << std::endl;
+    std::cout << "9. Get borrowed books for member" << std::endl;
+    std::cout << "10. Exit" << std::endl;
     std::cout << "Enter your choice: ";
 }
 
@@ -132,14 +145,51 @@ void listLibrarians(const Library& library) {
     }
 }
 
-void borrowBook(Member& member, Library& library) {
 
-    std::cout << "Enter book title: ";
+
+void printBorrowedBooks(const Library& library) {
+    listMembers(library);
+    std::cout << "Enter the member's name you want to check or 'exit' to exit: ";
+    std::string name;
+    std::getline(std::cin, name);
+    std::cin.ignore();
+    if (name == "exit")
+    {
+        return;
+    }
+    for (const Member& member : library.getMembers()) {
+        if (member.getName() == name) {
+            member.listBorrowedBooks();
+            return;
+        }
+    }
+    std::cout << "Member not found." << std::endl;
+}
+
+void handleBorrowBook(Library& library) {
+    listBooks(library);
+    std::cout << "Enter book title or 'exit' to exit: ";
     std::string title;
     std::getline(std::cin, title);
+
+    if (title == "exit")
+    {
+        return;
+    }
     Book book = library.findBook(title);
 
 
-    member.borrowBook(book);
-    std::cout << "Book borrowed successfully." << std::endl;
+    listMembers(library);
+    std::cout << "Enter member name: ";
+    std::string name;
+    std::getline(std::cin, name);
+    for (Member member : library.getMembers()) {
+
+        if (member.getName() == name) {
+            member.borrowBook(book);
+            std::cout << "Book borrowed successfully." << std::endl;
+            return;
+        }
+    }
+    std::cout << "Member not found." << std::endl;
 }

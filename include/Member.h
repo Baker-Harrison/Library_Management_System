@@ -19,7 +19,7 @@ public:
 
     void borrowBook(Book book);
     void returnBook(std::string bookName) ;
-    void listBorrowedBooks();
+    void listBorrowedBooks() const;
     void printDetails() override;
 };
 

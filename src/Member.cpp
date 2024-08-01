@@ -9,7 +9,7 @@ void Member::printDetails() {
     std::cout << "Number of Borrowed Books: " << borrowedBooks.size() << std::endl;
 }
 
-void Member::listBorrowedBooks() {
+void Member::listBorrowedBooks()  const{
     for (Book book : borrowedBooks) {
 
         std::cout << "Book Name: " << book.getTitle() << std::endl;
