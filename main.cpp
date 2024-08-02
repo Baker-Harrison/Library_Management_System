@@ -6,6 +6,8 @@
 #include "include/Librarian.h"
 #include <unistd.h>
 
+using namespace std;
+
 // Function prototypes
 void displayMenu();
 void handleAddBook(Library& library);
@@ -26,40 +28,50 @@ int main() {
 
     do {
         displayMenu();
-        std::cin >> choice;
-        std::cin.ignore();
+        cin.clear();
+        cin >> choice;
+        cin.ignore();
+
 
         switch (choice) {
             case 1:
                 handleAddBook(library);
+                std::cout << "Processing Request" << std::endl;
                 sleep(2);
                 break;
             case 2:
                 handleAddMember(library);
+                std::cout << "Processing Request" << std::endl;
                 sleep(2);
                 break;
             case 3:
                 handleAddLibrarian(library);
+                std::cout << "Processing Request" << std::endl;
                 sleep(2);
                 break;
             case 4:
                 listBooks(library);
+
                 sleep(2);
                 break;
             case 5:
                 listMembers(library);
+
                 sleep(2);
                 break;
             case 6:
                 listLibrarians(library);
+
                 sleep(2);
                 break;
             case 7:
                 handleBorrowBook(library);
+                std::cout << "Processing Request" << std::endl;
                 sleep(2);
                 break;
             case 8:
                 handleReturnBook(library);
+                std::cout << "Processing Request" << std::endl;
                 break;
             case 9:
                 printBorrowedBooks(library);
