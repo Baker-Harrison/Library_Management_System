@@ -17,10 +17,11 @@ public:
 
     Member(std::string name);
 
-    void borrowBook(Book book);
+    void borrowBook(Book& book);
     void returnBook(std::string bookName) ;
     void listBorrowedBooks() const;
     void printDetails() override;
+    std::vector<Book> getBorrowedBooks() const;
 };
 
 

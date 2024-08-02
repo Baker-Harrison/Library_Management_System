@@ -9,6 +9,7 @@
 
 #include <string>
 
+
 class Book {
 private:
     std::string title;

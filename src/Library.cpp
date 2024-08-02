@@ -20,7 +20,7 @@ std::vector<Book> Library::getBooks() const{
     return books;
 }
 
-std::vector<Member> Library::getMembers() const {
+std::vector<Member>& Library::getMembers() {  // Return reference
     return members;
 }
 
@@ -29,11 +29,54 @@ std::vector<Librarian> Library::getLibrarians() const {
 }
 
 Book Library::findBook(std::string title) {
-    for (Book book : books)
+    for (Book &book : books)
     {
-        if (book.getTitle() == title)
+        if (title == book.getTitle())
         {
             return book;
         }
     }
+}
+
+std::vector<Person*> Library::getAllPeople()
+{
+    std::vector<Person*> people;
+
+
+    for (Member &member : members)
+    {
+        bool exists = false;
+        for (Person* &person : people)
+        {
+            if (person->getName() == member.getName())
+            {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists)
+        {
+            people.push_back(new Member(member));
+        }
+    }
+
+
+    for (Librarian &librarian : librarians)
+    {
+        bool exists = false;
+        for (Person* &person : people)
+        {
+            if (person->getName() == librarian.getName())
+            {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists)
+        {
+            people.push_back(new Librarian(librarian));
+        }
+    }
+
+    return people;
 }

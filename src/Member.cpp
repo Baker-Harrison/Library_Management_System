@@ -10,7 +10,7 @@ void Member::printDetails() {
 }
 
 void Member::listBorrowedBooks()  const{
-    for (Book book : borrowedBooks) {
+    for (const Book& book : borrowedBooks) {
 
         std::cout << "Book Name: " << book.getTitle() << std::endl;
         std::cout << "Author: " << book.getAuthor() << std::endl;
@@ -28,9 +28,10 @@ void Member::returnBook(std::string bookName) {
     }
 }
 
-void Member::borrowBook(Book book) {
+void Member::borrowBook(Book& book) {
 
     borrowedBooks.push_back(book);
+
 }
 
 Member::Member(std::string name)
@@ -38,3 +39,8 @@ Member::Member(std::string name)
     this->name = name;
     this->borrowedBooks = borrowedBooks;
 }
+
+std::vector<Book> Member::getBorrowedBooks() const {
+    return borrowedBooks;
+}
+
