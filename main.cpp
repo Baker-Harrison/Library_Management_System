@@ -72,6 +72,7 @@ int main() {
             case 8:
                 handleReturnBook(library);
                 std::cout << "Processing Request" << std::endl;
+                sleep(2);
                 break;
             case 9:
                 printBorrowedBooks(library);
